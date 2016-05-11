@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="renderer" content="webkit">
+        <meta name="viewport" content="width=device-width,initial-scale =1.0,maximum-scale =1.0,user-scalable =0"/> 
+        <link rel="stylesheet" href="../css/main.css" type="text/css">
+        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=jraIUvwA9mgWR0j3If7PhnQO"></script>
+        <script src="../js/navmap.js"></script>
+        <script src="../js/mapmanager.js"></script>
+        <script src="../js/layerbase.js"></script>
+        <script src="../js/graphic.js"></script>
+        <script src="../js/layerselectorcontrol.js"></script>
+        <script src="../js/locatecontrol.js"></script>
+        <script src="../js/employeelayer.js"></script>
+        <script src="../js/projectlayer.js"></script>
+    </head>
+    <body>
+        <div id="allmap" style="height: 100%;"></div>
+    </body>
+</html>
+<script type="text/javascript">
+    window.addEventListener('load', function() {
+        var map = new BMap.Map("allmap", { enableMapClick: false });
+        window.mapManager = new BMapLib.MapManager();
+        window.mapManager.initializeMap(map);
+    });
+</script>
