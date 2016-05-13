@@ -47,10 +47,13 @@ function inheritPrototype(subClass, superClass) {
          * @remark 地图UI容器
          *    
          */
-        BMapLib.NavMap = function () {
+        BMapLib.NavMap = function (options) {
 
             
             //定义一堆属性
+            
+            this.options=options||{};
+            
             this.Map = null;
 
             this.locateControl = null;
@@ -184,6 +187,9 @@ function inheritPrototype(subClass, superClass) {
             });
             that.Map.addControl(this.locateControl);
 
+            var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_BOTTOM_LEFT});
+
+            that.Map.addControl(top_left_control);
 
             this.configMapControlEx();
 

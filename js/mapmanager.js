@@ -16,9 +16,9 @@
          * @remark 地图UI容器
          *    
          */
-        BMapLib.MapManager = function() {
+        BMapLib.MapManager = function(options) {
 
-            BMapLib.NavMap.call(this);
+            BMapLib.NavMap.call(this,options);
 
             this.layers = [];
 
@@ -63,23 +63,17 @@
         MapManager.prototype.configMapControlEx = function () {
             
 
-            if (BMapLib.LayerSelectorControl) {
-                var options = {
-                    anchor: BMAP_ANCHOR_TOP_RIGHT,
-                    offset: new BMap.Size(10, 20)
-                };
-                var layerSelectorControl = this.layerSelectorControl = new BMapLib.LayerSelectorControl(options);
-                window.mapManager.Map.addControl(layerSelectorControl);
+            if(this.options.loadSelectorControl){
+                if (BMapLib.LayerSelectorControl) {
+                    var options = {
+                        anchor: BMAP_ANCHOR_TOP_RIGHT,
+                        offset: new BMap.Size(10, 20)
+                    };
+                    var layerSelectorControl = this.layerSelectorControl = new BMapLib.LayerSelectorControl(options);
+                    window.mapManager.Map.addControl(layerSelectorControl);
+                }
             }
 
-//            if (BMapLib.LocateControl) {
-//                var options = {
-//                    anchor: BMAP_ANCHOR_TOP_LEFT,
-//                    offset: new BMap.Size(10, 100)
-//                };
-//                var locateControl = new BMapLib.LocateControl(options);
-//                window.mapManager.Map.addControl(locateControl);
-//            }
 
             this.configLayer();
 
@@ -115,15 +109,16 @@
 
             that.employeeLayer = employeeLayer;
 
-            this.layerSelectorControl.addItem({
-                icon: '../image/employee_offline_normal.png',
-                txt: '员工',
-                fn:function() {
-                    that.employeeLayer.toggleVisiable();
-                }
+            if(this.options.loadSelectorControl){
+                this.layerSelectorControl.addItem({
+                    icon: '../image/employee_offline_normal.png',
+                    txt: '员工',
+                    fn:function() {
+                        that.employeeLayer.toggleVisiable();
+                    }
 
-            });
-
+                });
+            }
 
             var projectLayer = new BMapLib.ProjectLayer();
             projectLayer.id = 'projectLayer';
@@ -133,13 +128,15 @@
 
             that.projectLayer = projectLayer;
             window.mapManager.addLayer(projectLayer);
-            this.layerSelectorControl.addItem({
-                icon: '../image/feature_nonMonitor_normal.png',
-                txt: '项目',
-                fn: function () {
-                    that.projectLayer.toggleVisiable();
-                }
-            });
+            if(this.options.loadSelectorControl){
+                this.layerSelectorControl.addItem({
+                    icon: '../image/feature_nonMonitor_normal.png',
+                    txt: '项目',
+                    fn: function () {
+                        that.projectLayer.toggleVisiable();
+                    }
+                });
+            }
         };
 
         /**
